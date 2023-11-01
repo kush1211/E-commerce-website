@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product List</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700,800" rel='stylesheet' type='text/css'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css" />
+    <link rel="preconnect" href="https://app.snipcart.com" />
+    <link rel="preconnect" href="https://cdn.snipcart.com" />
+    <style>
+        input,
+        textarea,
+        button {
+            height: 25px;
+            /* margin: 0; */
+            /* padding: 10px; */
+            font-family: Raleway, sans-serif;
+            font-weight: normal;
+            font-size: 12pt;
+            outline: none;
+            border-radius: 0;
+            background: none;
+            border: 1px solid #282B33;
+        }
+
+        button,
+        select {
+            height: 45px;
+            padding: 0 25px;
+            cursor: pointer;
+        }
+
+        button {
+            background: none;
+            border: 1px solid black;
+            margin: 25px 0;
+        }
+
+        button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .tools {
+            overflow: auto;
+            zoom: 1;
+        }
+
+        .search-area {
+            float: left;
+            width: 60%;
+        }
+
+        .settings {
+            display: none;
+            float: right;
+            width: 40%;
+            text-align: right;
+        }
+
+        #view {
+            display: none;
+            width: auto;
+            height: 47px;
+        }
+
+        #searchbutton {
+            width: 60px;
+            height: 47px;
+        }
+
+        input#search {
+            width: 30%;
+            width: calc(100% - 90px);
+            padding: 10px;
+            border: 1px solid #282B33;
+        }
+
+        @media screen and (max-width:400px) {
+            .search-area {
+                width: 100%;
+            }
+        }
+
+        .products {
+            width: 100%;
+            font-family: Raleway;
+        }
+
+        .product {
+            display: inline-block;
+            width: calc(24% - 13px);
+            margin: 10px 10px 30px 10px;
+            vertical-align: top;
+        }
+
+        .product img {
+            display: block;
+            margin: 0 auto;
+            width: auto;
+            height: 200px;
+            max-width: calc(100% - 20px);
+            /* border: 1px solid black; */
+            /* border-radius: 20px; */
+        }
+
+        .product-content {
+            text-align: center;
+        }
+
+        .product h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 10px 0 0 0;
+        }
+
+        .product h3 small {
+            display: block;
+            font-size: 16px;
+            font-weight: 400;
+            font-style: italic;
+            margin: 7px 0 0 0;
+        }
+
+        .product .product-text {
+            margin: 7px 0 0 0;
+            color: #777;
+        }
+
+        .product .price {
+            font-family: sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .product .genre {
+            font-size: 14px;
+        }
+
+
+        @media screen and (max-width:1150px) {
+            .product {
+                width: calc(33% - 23px);
+            }
+        }
+
+        @media screen and (max-width:700px) {
+            .product {
+                width: calc(50% - 43px);
+            }
+        }
+
+        @media screen and (max-width:400px) {
+            .product {
+                width: 100%;
+            }
+        }
+
+        /* TABLE VIEW */
+
+        @media screen and (min-width:401px) {
+            .settings {
+                display: block;
+            }
+
+            #view {
+                display: inline;
+            }
+
+            .products-table .product {
+                display: block;
+                width: auto;
+                margin: 10px 10px 30px 10px;
+            }
+
+            .products-table .product .product-img {
+                display: inline-block;
+                margin: 0;
+                width: 120px;
+                height: 120px;
+                vertical-align: middle;
+            }
+
+            .products-table .product img {
+                width: auto;
+                height: 120px;
+                max-width: 120px;
+            }
+
+            .products-table .product-content {
+                text-align: left;
+                display: inline-block;
+                margin-left: 20px;
+                vertical-align: middle;
+                width: calc(100% - 145px);
+            }
+
+            .products-table .product h3 {
+                margin: 0;
+            }
+        }
+
+        .dropbtn {
+            /* background: transparent; */
+            color: white;
+            height: 0px;
+            /* padding: 16px; */
+            /* font-size: 16px; */
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            color: aqua;
+        }
+
+
+        .row {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="main.html"><img src="krinix1.png" style="width: 50px;height: 50px;"
+                    alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav" style="margin: auto;">
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="dropbtn">Men</button>
+                            <div class="dropdown-content">
+                                <a href="#top_wear">Topwear</a>
+                                <a href="#bottom_wear">Bottomwear</a>
+                                <a href="#shoes">Shoes</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item" id="women">
+                        <div class="dropdown">
+                            <button class="dropbtn">Women</button>
+                            <div class="dropdown-content">
+                                <a href="#top_wear_women">Topwear</a>
+                                <a href="#bottom_wear_women">Bottomwear</a>
+                                <a href="#shoes_women">Shoes</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item" id="kids">
+                        <div class="dropdown">
+                            <button class="dropbtn">Kid</button>
+                            <div class="dropdown-content">
+                                <a href="#top_wear_kids">Topwear</a>
+                                <a href="#bottom_wear_kids">Bottomwear</a>
+                                <a href="#shoes_kids">Shoes</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <form class="form form-signup" onkeyup="return find()">
+                    <input id="signup-email" type="text" style="background-color:white;" placeholder="Search item"
+                        required>
+                </form>
+                <button style="height: 20px;border: none;" class="snipcart-checkout"><svg width="31" height="100%" viewBox="0 0 31 27" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M1.10512 0.368718C0.560256 0.368718 0.118164 0.812066 0.118164 1.35848C0.118164 1.9049 0.560256 2.34824 1.10512 2.34824H4.90887L8.30138 18.4009C8.43503 19.0053 8.83085 19.5079 9.32946 19.5041H25.7788C26.3005 19.5118 26.7799 19.0375 26.7799 18.5143C26.7799 17.9911 26.3006 17.5168 25.7788 17.5245H10.1315L9.71003 15.545H27.095C27.5371 15.5412 27.9547 15.2048 28.0511 14.7718L30.354 4.87412C30.4825 4.29933 29.9852 3.67172 29.3979 3.66786H7.21171L6.6771 1.15221C6.58329 0.71276 6.15921 0.368652 5.7107 0.368652L1.10512 0.368718ZM7.623 5.64746H12.7634L13.2569 8.61674H8.25005L7.623 5.64746ZM14.7785 5.64746H20.9881L20.4946 8.61674H15.2719L14.7785 5.64746ZM23.0031 5.64746H28.1537L27.4649 8.61674H22.5097L23.0031 5.64746ZM8.67181 10.5963H13.5862L14.0797 13.5656H9.29919L8.67181 10.5963ZM15.6009 10.5963H20.1656L19.6721 13.5656H16.0944L15.6009 10.5963ZM22.1807 10.5963H27.0023L26.3135 13.5656H21.6872L22.1807 10.5963ZM12.6197 20.164C10.8141 20.164 9.32979 21.6525 9.32979 23.4632C9.32979 25.2739 10.8141 26.7624 12.6197 26.7624C14.4252 26.7624 15.9095 25.2739 15.9095 23.4632C15.9095 21.6525 14.4252 20.164 12.6197 20.164ZM22.4892 20.164C20.6837 20.164 19.1994 21.6525 19.1994 23.4632C19.1994 25.2739 20.6837 26.7624 22.4892 26.7624C24.2948 26.7624 25.7791 25.2739 25.7791 23.4632C25.7791 21.6525 24.2948 20.164 22.4892 20.164ZM12.6197 22.1435C13.3586 22.1435 13.9356 22.7222 13.9356 23.4632C13.9356 24.2042 13.3586 24.7829 12.6197 24.7829C11.8807 24.7829 11.3037 24.2042 11.3037 23.4632C11.3037 22.7222 11.8807 22.1435 12.6197 22.1435ZM22.4892 22.1435C23.2282 22.1435 23.8052 22.7222 23.8052 23.4632C23.8052 24.2042 23.2282 24.7829 22.4892 24.7829C21.7503 24.7829 21.1733 24.2042 21.1733 23.4632C21.1733 22.7222 21.7503 22.1435 22.4892 22.1435Z"
+                        fill="#429bfc"></path>
+                </svg>
+            </button>
+            </div>
+        </div>
+        </div>
+    </nav>
+    <br>
+        <br>
+        <br>
+        <br>
+    <div id="top_wear">
+        <br><br><br><br>
+        <h2 style=" background-color: black; color: white; height: 80px; font-size: 40px; text-align: center; padding-top: 10px; ">Topwear for Men</h2>
+        <div class="d-flex flex-wrap">
+            <div class="product" id="Huetrap Men Mint Green Round Neck Cotton T-shirt">
+                <div class="product-content" >
+                    <div>
+                        <br>
+                        <img src="Product Pages\Men\Topwear\t1\t1.1.jpg" alt="Huetrap Mint Green T-shirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Huetrap</h3>
+                        <p style="text-align: left;margin-left: 25px;">Men Mint Green Round Neck Cotton T-shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1299.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Men/Topwear/t1.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Huetrap Mint Green T-shirt" data-item-price="1299.00"
+                                data-item-description="Men Mint Green Round Neck Cotton Loose T-shirt"
+                                data-item-image="Product Pages\Men\Topwear\t1\t1.1.jpg"
+                                data-item-name="Huetrap Mint Green T-shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options=" US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product ">
+                <div class="product-content" id="Puma Men Black Essential Tank Pure Cotton T-shirt">      
+                    <div>
+                        <br>
+                        <img src="Product Pages\Men\Topwear\t2\t2.1.jpg" alt="Puma Tank Tshirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Puma</h3>
+                        <p style="text-align: left;margin-left: 25px;">Men Black Essential Tank Pure Cotton T-shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 899.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Men/Topwear/t2.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Puma Black Tank T-Shirt" data-item-price="899.00"
+                                data-item-description="Black Essential Tank Pure Cotton T-shirt"
+                                data-item-image="Product Pages\Men\Topwear\t2\t2.1.jpg"
+                                data-item-name="Puma Black Tank T-Shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-content" id="Roadster Men Maroon Curl Edge Round Neck Cotton T-shirt">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Men\Topwear\t3\t3.1.jpg" alt="Roadster Maroon T-Shirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Roadster</h3>
+                        <p style="text-align: left;margin-left: 25px;">Men Maroon Curl Edge Round Neck Cotton T-shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 599.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Men/Topwear/t3.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Roadster Maroon T-Shirt" data-item-price="599.00"
+                                data-item-description="Men Maroon Curl Edge Cotton T-shirt"
+                                data-item-image="Product Pages\Men\Topwear\t3\t3.1.jpg"
+                                data-item-name="Roadster Maroon T-Shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-content" id="Dillinger Men Green Black Printed Pure Cotton T-shirt">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Men\Topwear\t4\t4.1.jpg" alt="Dillinger Green T-Shirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Dillinger</h3>
+                        <p style="text-align: left;margin-left: 25px;">Men Green Black Printed Pure Cotton T-shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 799.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Men/Topwear/t4.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Dillinger Green T-Shirt" data-item-price="799.00"
+                                data-item-description="Green Black Printed Pure Cotton T-shirt"
+                                data-item-image="Product Pages\Men\Topwear\t4\t4.1.jpg"
+                                data-item-name="Dillinger Green T-Shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product" id="Huetrap Men Mint Green Round Neck Cotton T-shirt">
+                <div class="product-content" >
+                    <div>
+                        <br>
+                        <img src="Product Pages\Men\Topwear\t1\t1.1.jpg" alt="Huetrap Mint Green T-shirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Huetrap</h3>
+                        <p style="text-align: left;margin-left: 25px;">Men Mint Green Round Neck Cotton T-shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1299.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Men/Topwear/t1.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Huetrap Mint Green T-shirt" data-item-price="1299.00"
+                                data-item-description="Men Mint Green Round Neck Cotton Loose T-shirt"
+                                data-item-image="Product Pages\Men\Topwear\t1\t1.1.jpg"
+                                data-item-name="Huetrap Mint Green T-shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options=" US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-content" id="Puma Men Black Essential Tank Pure Cotton T-shirt">      
+                    <div>
+                        <br>
+                        <img src="Product Pages\Men\Topwear\t2\t2.1.jpg" alt="Puma Tank Tshirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Puma</h3>
+                        <p style="text-align: left;margin-left: 25px;">Men Black Essential Tank Pure Cotton T-shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 899.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Men/Topwear/t2.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Puma Black Tank T-Shirt" data-item-price="899.00"
+                                data-item-description="Black Essential Tank Pure Cotton T-shirt"
+                                data-item-image="Product Pages\Men\Topwear\t2\t2.1.jpg"
+                                data-item-name="Puma Black Tank T-Shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product ">
+                <div class="product-content" id="Roadster Men Maroon Curl Edge Round Neck Cotton T-shirt">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Men\Topwear\t3\t3.1.jpg" alt="Roadster Maroon T-Shirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Roadster</h3>
+                        <p style="text-align: left;margin-left: 25px;">Men Maroon Curl Edge Round Neck Cotton T-shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 599.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Men/Topwear/t3.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Roadster Maroon T-Shirt" data-item-price="599.00"
+                                data-item-description="Men Maroon Curl Edge Cotton T-shirt"
+                                data-item-image="Product Pages\Men\Topwear\t3\t3.1.jpg"
+                                data-item-name="Roadster Maroon T-Shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product ">
+                <div class="product-content" id="Dillinger Men Green Black Printed Pure Cotton T-shirt">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Men\Topwear\t4\t4.1.jpg" alt="Dillinger Green T-Shirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Dillinger</h3>
+                        <p style="text-align: left;margin-left: 25px;">Men Green Black Printed Pure Cotton T-shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 799.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Men/Topwear/t4.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Dillinger Green T-Shirt" data-item-price="799.00"
+                                data-item-description="Green Black Printed Pure Cotton T-shirt"
+                                data-item-image="Product Pages\Men\Topwear\t4\t4.1.jpg"
+                                data-item-name="Dillinger Green T-Shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="bottom_wear">
+            <br>
+        <br>
+        <br>
+        <br>
+            <h2 style=" background-color: black; color: white; height: 80px; font-size: 40px; text-align: center; padding-top: 10px; ">Bottomwear for Men</h2>
+            <div class="d-flex flex-wrap">
+                <div class="product">
+                    <div class="product-content" id="Here&Now Men Blue Slim Fit Chinos">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Men\Bottomwear\b1\b1.2.jpg" alt="Here&Now Blue Chinos">
+                            <h3 style="text-align: left;margin-left: 25px;">Here&Now</h3>
+                            <p style="text-align: left;margin-left: 25px;">Men Blue Slim Fit Chinos</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1299.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Men/Bottomwear/b1.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Here&Now Blue Chinos" data-item-price="1299.00"
+                                    data-item-description="Men Blue Slim Fit Chinos"
+                                    data-item-image="Product Pages\Men\Bottomwear\b1\b1.2.jpg"
+                                    data-item-name="Here&Now Blue Chinos" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="30|32|34|36|38|40|42|44">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Roadster Time Travlr Brown Solid Chinos">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Men\Bottomwear\b2\b2.2.jpg" alt="Roadster Brown Chinos">
+                            <h3 style="text-align: left;margin-left: 25px;">Roadster</h3>
+                            <p style="text-align: left;margin-left: 25px;">Time Travlr Brown Solid Chinos</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1099.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Men/Bottomwear/b2.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Roadster Brown Chinos" data-item-price="1099.00"
+                                    data-item-description="Time Travlr Brown Solid Chinos"
+                                    data-item-image="Product Pages\Men\Bottomwear\b2\b2.2.jpg"
+                                    data-item-name="Roadster Brown Chinos" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="30|32|34|36|38|40|42|44">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Adidas Navy Blue Solid Sustainable Joggers">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Men\Bottomwear\b3\b3.2.jpg" alt="Adidas Navy Blue Joggers">
+                            <h3 style="text-align: left;margin-left: 25px;">Adidas</h3>
+                            <p style="text-align: left;margin-left: 25px;">Navy Blue Solid Sustainable Joggers</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1931.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Men/Bottomwear/b3.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Adidas Navy Blue Joggers" data-item-price="1931.00"
+                                    data-item-description="Navy Blue Solid Sustainable Joggers"
+                                    data-item-image="Product Pages\Men\Bottomwear\b3\b3.2.jpg"
+                                    data-item-name="Adidas Navy Blue Joggers" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="30|32|34|36|38|40|42|44">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Nike Black Printed Standard Track Pants">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Men\Bottomwear\b4\b4.1.jpg" alt="Nike Black Track Pants">
+                            <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                            <p style="text-align: left;margin-left: 25px;">Black Printed Standard Track Pants</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 2370.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Men/Bottomwear/b4.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Nike Black Track Pants" data-item-price="2370.00"
+                                    data-item-description="Black Printed Standard Track Pants"
+                                    data-item-image="Product Pages\Men\Bottomwear\b4\b4.1.jpg"
+                                    data-item-name="Nike Black Track Pants" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="30|32|34|36|38|40|42|44">
+                                    Add to cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Here&Now Men Blue Slim Fit Chinos">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Men\Bottomwear\b1\b1.2.jpg" alt="Here&Now Blue Chinos">
+                            <h3 style="text-align: left;margin-left: 25px;">Here&Now</h3>
+                            <p style="text-align: left;margin-left: 25px;">Men Blue Slim Fit Chinos</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1299.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Men/Bottomwear/b1.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Here&Now Blue Chinos" data-item-price="1299.00"
+                                    data-item-description="Men Blue Slim Fit Chinos"
+                                    data-item-image="Product Pages\Men\Bottomwear\b1\b1.2.jpg"
+                                    data-item-name="Here&Now Blue Chinos" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="30|32|34|36|38|40|42|44">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Roadster Time Travlr Brown Solid Chinos">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Men\Bottomwear\b2\b2.2.jpg" alt="Roadster Brown Chinos">
+                            <h3 style="text-align: left;margin-left: 25px;">Roadster</h3>
+                            <p style="text-align: left;margin-left: 25px;">Time Travlr Brown Solid Chinos</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1099.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Men/Bottomwear/b2.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Roadster Brown Chinos" data-item-price="1099.00"
+                                    data-item-description="Time Travlr Brown Solid Chinos"
+                                    data-item-image="Product Pages\Men\Bottomwear\b2\b2.2.jpg"
+                                    data-item-name="Roadster Brown Chinos" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="30|32|34|36|38|40|42|44">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Adidas Navy Blue Solid Sustainable Joggers">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Men\Bottomwear\b3\b3.2.jpg" alt="Adidas Navy Blue Joggers">
+                            <h3 style="text-align: left;margin-left: 25px;">Adidas</h3>
+                            <p style="text-align: left;margin-left: 25px;">Navy Blue Solid Sustainable Joggers</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1931.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Men/Bottomwear/b3.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Adidas Navy Blue Joggers" data-item-price="1931.00"
+                                    data-item-description="Navy Blue Solid Sustainable Joggers"
+                                    data-item-image="Product Pages\Men\Bottomwear\b3\b3.2.jpg"
+                                    data-item-name="Adidas Navy Blue Joggers" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="30|32|34|36|38|40|42|44">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Nike Black Printed Standard Track Pants">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Men\Bottomwear\b4\b4.1.jpg" alt="Nike Black Track Pants">
+                            <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                            <p style="text-align: left;margin-left: 25px;">Black Printed Standard Track Pants</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 2370.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Men/Bottomwear/b4.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Nike Black Track Pants" data-item-price="2370.00"
+                                    data-item-description="Black Printed Standard Track Pants"
+                                    data-item-image="Product Pages\Men\Bottomwear\b4\b4.1.jpg"
+                                    data-item-name="Nike Black Track Pants" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="30|32|34|36|38|40|42|44">
+                                    Add to cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="shoes">
+                <br>
+                <br>
+                <br>
+                <br>
+                <h2 style=" background-color: black; color: white; height: 80px; font-size: 40px; text-align: center; padding-top: 10px;">Shoes for Men</h2>
+                <div class="d-flex flex-wrap">
+                    <div class="product">
+                        <div class="product-content" id="Nike Air Penny 2">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Men\Shoes\s1\s1.4.jpg" alt="Nike Air Penny 2">
+                                <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                <p style="text-align: left;margin-left: 25px;">Air Penny 2</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 18,395.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product Pages/Men/Shoes/s1.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Nike Air Penny 2" data-item-price="18395.00"
+                                        data-item-description="Nike Air Penny 2"
+                                        data-item-image="Product Pages\Men\Shoes\s1\s1.4.jpg"
+                                        data-item-name="Nike Air Penny 2" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9|UK 9.5|UK 10|UK 10.5|UK 11|UK 11.5|UK 12">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Nike Cosmic Unity 2">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Men\Shoes\s3\s3.4.jpg" alt="Nike Cosmic Unity 2">
+                                <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                <p style="text-align: left;margin-left: 25px;">Cosmic Unity 2</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 13,995.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Men/Shoes/s3.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Nike Cosmic Unity 2" data-item-price="13995.00"
+                                        data-item-description="Nike Cosmic Unity 2"
+                                        data-item-image="Product Pages\Men\Shoes\s3\s3.4.jpg"
+                                        data-item-name="Nike Cosmic Unity 2" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9|UK 9.5|UK 10|UK 10.5|UK 11|UK 11.5|UK 12">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Nike Zoom Superfly 9 Elite FG">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Men\Shoes\s4\s4.4.jpg" alt="Black Snipcart Stickers">
+                                <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                <p style="text-align: left;margin-left: 25px;">Zoom Superfly 9 Elite FG</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 25,095.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product Pages\Men\Shoes\s4.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Nike Zoom Mercurial" data-item-price="25095.00"
+                                        data-item-description="Nike Zoom Mercurial Dream Speed Superfly 9 Elite FG"
+                                        data-item-image="Product Pages\Men\Shoes\s4\s4.4.jpg"
+                                        data-item-name="Nike Zoom Mercurial" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9|UK 9.5|UK 10|UK 10.5|UK 11|UK 11.5|UK 12">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Nike Precision 6 FlyEase">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Men\Shoes\s5\s5.4.jpg" alt="Nike Precision 6 FlyEase">
+                                <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                <p style="text-align: left;margin-left: 25px;">Precision 6 FlyEase</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 5695.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Men/Shoes/s5.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Nike Precision 6 FlyEase" data-item-price="5695.00"
+                                        data-item-description="Nike Precision 6 FlyEase"
+                                        data-item-image="Product Pages\Men\Shoes\s5\s5.4.jpg"
+                                        data-item-name="Nike Precision 6 FlyEase" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9|UK 9.5|UK 10|UK 10.5|UK 11|UK 11.5|UK 12">
+                                        Add to cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Nike Air Penny 2">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Men\Shoes\s1\s1.4.jpg" alt="Nike Air Penny 2">
+                                <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                <p style="text-align: left;margin-left: 25px;">Air Penny 2</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 18,395.00</h5>
+                                <div class="buy-button">
+                                    <a href="s1.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Nike Air Penny 2" data-item-price="18395.00"
+                                        data-item-description="Nike Air Penny 2"
+                                        data-item-image="Product Pages\Men\Shoes\s1\s1.4.jpg"
+                                        data-item-name="Nike Air Penny 2" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9|UK 9.5|UK 10|UK 10.5|UK 11|UK 11.5|UK 12">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Nike Cosmic Unity 2">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Men\Shoes\s3\s3.4.jpg" alt="Nike Cosmic Unity 2">
+                                <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                <p style="text-align: left;margin-left: 25px;">Cosmic Unity 2</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 13,995.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Men/Shoes/s3.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Nike Cosmic Unity 2" data-item-price="13995.00"
+                                        data-item-description="Nike Cosmic Unity 2"
+                                        data-item-image="Product Pages\Men\Shoes\s3\s3.4.jpg"
+                                        data-item-name="Nike Cosmic Unity 2" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9|UK 9.5|UK 10|UK 10.5|UK 11|UK 11.5|UK 12">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Nike Zoom Superfly 9 Elite FG">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Men\Shoes\s4\s4.4.jpg" alt="Black Snipcart Stickers">
+                                <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                <p style="text-align: left;margin-left: 25px;">Zoom Superfly 9 Elite FG</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 25,095.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product Pages\Men\Shoes\s4.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Nike Zoom Mercurial" data-item-price="25095.00"
+                                        data-item-description="Nike Zoom Mercurial Dream Speed Superfly 9 Elite FG"
+                                        data-item-image="Product Pages\Men\Shoes\s4\s4.4.jpg"
+                                        data-item-name="Nike Zoom Mercurial" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9|UK 9.5|UK 10|UK 10.5|UK 11|UK 11.5|UK 12">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Nike Precision 6 FlyEase">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Men\Shoes\s5\s5.4.jpg" alt="Nike Precision 6 FlyEase">
+                                <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                <p style="text-align: left;margin-left: 25px;">Precision 6 FlyEase</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 5695.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Men/Shoes/s5.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Nike Precision 6 FlyEase" data-item-price="5695.00"
+                                        data-item-description="Nike Precision 6 FlyEase"
+                                        data-item-image="Product Pages\Men\Shoes\s5\s5.4.jpg"
+                                        data-item-name="Nike Precision 6 FlyEase" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9|UK 9.5|UK 10|UK 10.5|UK 11|UK 11.5|UK 12">
+                                        Add to cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    <div id="top_wear_women">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h2 style=" background-color: black; color: white; height: 80px; font-size: 40px; text-align: center; padding-top: 10px;">Topwear for Women</h2>
+        <div class="d-flex flex-wrap">
+            <div class="product">
+                <div class="product-content" id="Roadster Women Black Ruched Top">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Women\Topwear\t1\t1.3.jpg" alt="Roadster Black Top">
+                        <h3 style="text-align: left;margin-left: 25px;">Roadster</h3>
+                        <p style="text-align: left;margin-left: 25px;">Women Black Ruched Top</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 558.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Women/Topwear/t1.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Roadster Black Top" data-item-price="558.00"
+                                data-item-description="Roadster Women Black Ribbed Ruched Top"
+                                data-item-image="Product Pages\Women\Topwear\t1\t1.3.jpg"
+                                data-item-name="Roadster Black Top" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-content" id="Malhaar Blue Floral Print Empire Top">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Women\Topwear\t2\t2.3.jpg" alt="Malhaar Blue Top">
+                        <h3 style="text-align: left;margin-left: 25px;">Malhaar</h3>
+                        <p style="text-align: left;margin-left: 25px;">Blue Floral Print Empire Top</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 699.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Women/Topwear/t2.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Malhaar Blue Top" data-item-price="699.00"
+                                data-item-description="Malhaar Blue Floral Print Empire Top"
+                                data-item-image="Product Pages\Women\Topwear\t2\t2.3.jpg"
+                                data-item-name="Malhaar Blue Top" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-content" id="Forever New Women Formal Shirt">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Women\Topwear\t4\t4.3.jpg" alt="Forever New Formal Shirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Forever New</h3>
+                        <p style="text-align: left;margin-left: 25px;">Women Formal Shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 4200.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Women/Topwear/t4.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Forever New Formal Shirt" data-item-price="4200.00"
+                                data-item-description="Forever New Women Formal Shirt"
+                                data-item-image="Product Pages\Women\Topwear\t4\t4.3.jpg"
+                                data-item-name="Forever New Formal Shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-content" id="Marks & Spencer Ethnic Embroidered Casual Shirt">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Women\Topwear\t5\t5.3.jpg" alt="Marks & Spencer Shirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Marks & Spencer</h3>
+                        <p style="text-align: left;margin-left: 25px;">Ethnic Embroidered Casual Shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 4999.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Women/Topwear/t5.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Marks & Spencer Shirt" data-item-price="4999.00"
+                                data-item-description="Marks & Spencer Ethnic Motif Embroidered Casual Shirt"
+                                data-item-image="Product Pages\Women\Topwear\t5\t5.3.jpg"
+                                data-item-name="Marks & Spencer Shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-content" id="Roadster Women Black Ruched Top">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Women\Topwear\t1\t1.3.jpg" alt="Roadster Black Top">
+                        <h3 style="text-align: left;margin-left: 25px;">Roadster</h3>
+                        <p style="text-align: left;margin-left: 25px;">Women Black Ruched Top</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 558.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Women/Topwear/t1.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Roadster Black Top" data-item-price="558.00"
+                                data-item-description="Roadster Women Black Ribbed Ruched Top"
+                                data-item-image="Product Pages\Women\Topwear\t1\t1.3.jpg"
+                                data-item-name="Roadster Black Top" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-content" id="Malhaar Blue Floral Print Empire Top">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Women\Topwear\t2\t2.3.jpg" alt="Malhaar Blue Top">
+                        <h3 style="text-align: left;margin-left: 25px;">Malhaar</h3>
+                        <p style="text-align: left;margin-left: 25px;">Blue Floral Print Empire Top</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 699.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Women/Topwear/t2.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Malhaar Blue Top" data-item-price="699.00"
+                                data-item-description="Malhaar Blue Floral Print Empire Top"
+                                data-item-image="Product Pages\Women\Topwear\t2\t2.3.jpg"
+                                data-item-name="Malhaar Blue Top" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-content" id="Forever New Women Formal Shirt">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Women\Topwear\t4\t4.3.jpg" alt="Forever New Formal Shirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Forever New</h3>
+                        <p style="text-align: left;margin-left: 25px;">Women Formal Shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 4200.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Women/Topwear/t4.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Forever New Formal Shirt" data-item-price="4200.00"
+                                data-item-description="Forever New Women Formal Shirt"
+                                data-item-image="Product Pages\Women\Topwear\t4\t4.3.jpg"
+                                data-item-name="Forever New Formal Shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart&nbsp;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-content" id="Marks & Spencer Ethnic Embroidered Casual Shirt">
+                    <div>
+                        <br>
+                        <img src="Product Pages\Women\Topwear\t5\t5.3.jpg" alt="Marks & Spencer Shirt">
+                        <h3 style="text-align: left;margin-left: 25px;">Marks & Spencer</h3>
+                        <p style="text-align: left;margin-left: 25px;">Ethnic Embroidered Casual Shirt</p>
+                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 4999.00</h5>
+                        <div class="buy-button">
+                            <a href="Product%20Pages/Women/Topwear/t5.html"><button>Details</button></a>
+                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                data-item-id="Marks & Spencer Shirt" data-item-price="4999.00"
+                                data-item-description="Marks & Spencer Ethnic Motif Embroidered Casual Shirt"
+                                data-item-image="Product Pages\Women\Topwear\t5\t5.3.jpg"
+                                data-item-name="Marks & Spencer Shirt" data-item-custom1-name="Available Sizes"
+                                data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                Add to cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="bottom_wear_women">
+            <br>
+        <br>
+        <br>
+        <br>
+            <h2 style=" background-color: black; color: white; height: 80px; font-size: 40px; text-align: center; padding-top: 10px;">Bottomwear for Women</h2>
+            <div class="d-flex flex-wrap">
+                <div class="product">
+                    <div class="product-content" id="Calvin Klein Women Loose Low-Rise Jeans">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Women\Bottomwear\b2\b2.3.jpg" alt="Calvin Klein Jeans">
+                            <h3 style="text-align: left;margin-left: 25px;">Calvin Klein</h3>
+                            <p style="text-align: left;margin-left: 25px;">Women Loose Low-Rise Jeans</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 8299.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Women/Bottomwear/b2.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Calvin Klein Jeans" data-item-price="8299.00"
+                                    data-item-description="Calvin Klein Women Loose Low-Rise Jeans"
+                                    data-item-image="Product Pages\Women\Bottomwear\b2\b2.3.jpg"
+                                    data-item-name="Calvin Klein Jeans" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="26|28|30|32|34|36|38|40">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Gant Rust Striped Cotton Trouser">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Women\Bottomwear\b3\b3.3.jpg" alt="Gant Women Trousers">
+                            <h3 style="text-align: left;margin-left: 25px;">GANT</h3>
+                            <p style="text-align: left;margin-left: 25px;">Rust Striped Cotton Trouser</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 12,599.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Women/Bottomwear/b3.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Gant Women Trousers" data-item-price="12599.00"
+                                    data-item-description="GANT Rust Striped Cotton Straight Fit Trousers"
+                                    data-item-image="Product Pages\Women\Bottomwear\b3\b3.3.jpg"
+                                    data-item-name="Gant Women Trousers" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="26|28|30|32|34|36|38|40">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Roadster Boyfriend Fit Light Fade Jeans">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Women\Bottomwear\b4\b4.3.jpg" alt="Roadster Fade Jeans">
+                            <h3 style="text-align: left;margin-left: 25px;">Roadster</h3>
+                            <p style="text-align: left;margin-left: 25px;">Boyfriend Fit Light Fade Jeans</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 2599.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Women/Bottomwear/b4.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Roadster Fade Jeans" data-item-price="2599.00"
+                                    data-item-description="Roadster Boyfriend Fit Highly Distressed Light Fade Jeans"
+                                    data-item-image="Product Pages\Women\Bottomwear\b4\b4.3.jpg"
+                                    data-item-name="Roadster Fade Jeans" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="26|28|30|32|34|36|38|40">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Marks & Spencer Black Pure Leather Trousers">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Women\Bottomwear\b5\b5.2.jpg" alt="Marks & Spencer Trousers">
+                            <h3 style="text-align: left;margin-left: 25px;">Marks & Spencer</h3>
+                            <p style="text-align: left;margin-left: 25px;">Black Pure Leather Trousers</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 17,499.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Women/Bottomwear/b5.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Marks & Spencer Trousers" data-item-price="17499.00"
+                                    data-item-description="Marks & Spencer Black Pure Leather High-Rise Skinny Fit Trousers"
+                                    data-item-image="Product Pages\Women\Bottomwear\b5\b5.2.jpg"
+                                    data-item-name="Marks & Spencer Trousers" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="26|28|30|32|34|36|38|40">
+                                    Add to cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Calvin Klein Women Loose Low-Rise Jeans">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Women\Bottomwear\b2\b2.3.jpg" alt="Calvin Klein Jeans">
+                            <h3 style="text-align: left;margin-left: 25px;">Calvin Klein</h3>
+                            <p style="text-align: left;margin-left: 25px;">Women Loose Low-Rise Jeans</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 8299.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Women/Bottomwear/b2.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Calvin Klein Jeans" data-item-price="8299.00"
+                                    data-item-description="Calvin Klein Women Loose Low-Rise Jeans"
+                                    data-item-image="Product Pages\Women\Bottomwear\b2\b2.3.jpg"
+                                    data-item-name="Calvin Klein Jeans" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="26|28|30|32|34|36|38|40">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Gant Women Rust Striped Cotton Trouser">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Women\Bottomwear\b3\b3.3.jpg" alt="Gant Women Trousers">
+                            <h3 style="text-align: left;margin-left: 25px;">GANT</h3>
+                            <p style="text-align: left;margin-left: 25px;">Rust Striped Cotton Trouser</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 12,599.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Women/Bottomwear/b3.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Gant Women Trousers" data-item-price="12599.00"
+                                    data-item-description="GANT Rust Striped Cotton Straight Fit Trousers"
+                                    data-item-image="Product Pages\Women\Bottomwear\b3\b3.3.jpg"
+                                    data-item-name="Gant Women Trousers" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="26|28|30|32|34|36|38|40">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Roadster Boyfriend Fit Light Fade Jeans">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Women\Bottomwear\b4\b4.3.jpg" alt="Roadster Fade Jeans">
+                            <h3 style="text-align: left;margin-left: 25px;">Roadster</h3>
+                            <p style="text-align: left;margin-left: 25px;">Boyfriend Fit Light Fade Jeans</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 2599.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Women/Bottomwear/b4.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Roadster Fade Jeans" data-item-price="2599.00"
+                                    data-item-description="Roadster Boyfriend Fit Highly Distressed Light Fade Jeans"
+                                    data-item-image="Product Pages\Women\Bottomwear\b4\b4.3.jpg"
+                                    data-item-name="Roadster Fade Jeans" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="26|28|30|32|34|36|38|40">
+                                    Add to cart&nbsp;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product">
+                    <div class="product-content" id="Marks & Spencer Black Pure Leather Trousers">
+                        <div>
+                            <br>
+                            <img src="Product Pages\Women\Bottomwear\b5\b5.2.jpg" alt="Marks & Spencer Trousers">
+                            <h3 style="text-align: left;margin-left: 25px;">Marks & Spencer</h3>
+                            <p style="text-align: left;margin-left: 25px;">Black Pure Leather Trousers</p>
+                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 17,499.00</h5>
+                            <div class="buy-button">
+                                <a href="Product%20Pages/Women/Bottomwear/b5.html"><button>Details</button></a>
+                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                    data-item-id="Marks & Spencer Trousers" data-item-price="17499.00"
+                                    data-item-description="Marks & Spencer Black Pure Leather High-Rise Skinny Fit Trousers"
+                                    data-item-image="Product Pages\Women\Bottomwear\b5\b5.2.jpg"
+                                    data-item-name="Marks & Spencer Trousers" data-item-custom1-name="Available Sizes"
+                                    data-item-custom1-options="26|28|30|32|34|36|38|40">
+                                    Add to cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="shoes_women">
+                <br>
+                <br>
+                <br>
+                <br>
+                <h2 style=" background-color: black; color: white; height: 80px; font-size: 40px; text-align: center; padding-top: 10px;">Shoes for Women</h2>
+                <div class="d-flex flex-wrap">
+                    <div class="product">
+                        <div class="product-content" id="Nike Women Perforated Sneakers">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Women\Shoes\s1\s1.1.jpg" alt="Nike Perforated Sneakers">
+                                <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                <p style="text-align: left;margin-left: 25px;">Women Perforated Sneakers</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 4745.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Women/Shoes/s1.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Nike Perforated Sneakers" data-item-price="4745.00"
+                                        data-item-description="Nike Women Perforated Sneakers"
+                                        data-item-image="Product Pages\Women\Shoes\s1\s1.1.jpg"
+                                        data-item-name="Nike Perforated Sneakers" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 3|UK 3.5|UK 4|UK 4.5|UK 5|UK 5.5|UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Tommy Hilfiger Beige & Burgundy Sneakers">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Women\Shoes\s2\s2.1.jpg" alt="Tommy Hilfiger Leather Sneakers">
+                                <h3 style="text-align: left;margin-left: 25px;">Tommy Hilfiger</h3>
+                                <p style="text-align: left;margin-left: 25px;">Beige & Burgundy Sneakers</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 6879.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Women/Shoes/s2.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Tommy Hilfiger Leather Sneakers" data-item-price="6879.00"
+                                        data-item-description="Women Beige & Burgundy Leather Sneakers"
+                                        data-item-image="Product Pages\Women\Shoes\s2\s2.1.jpg"
+                                        data-item-name="Tommy Hilfiger Leather Sneakers" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 3|UK 3.5|UK 4|UK 4.5|UK 5|UK 5.5|UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Skechers Women Memory Foam Sneakers">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Women\Shoes\s3\s3.1.jpg" alt="Skechers Memory Foam Sneakers">
+                                <h3 style="text-align: left;margin-left: 25px;">Skechers</h3>
+                                <p style="text-align: left;margin-left: 25px;">Women Memory Foam Sneakers</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 5495.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Women/Shoes/s3.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Skechers Memory Foam Sneakers" data-item-price="5495.00"
+                                        data-item-description="Skechers Women Memory Foam Sneakers"
+                                        data-item-image="Product Pages\Women\Shoes\s3\s3.1.jpg"
+                                        data-item-name="Skechers Memory Foam Sneakers" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 3|UK 3.5|UK 4|UK 4.5|UK 5|UK 5.5|UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Mast & Harbour White Colourblocked Sneakers">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Women\Shoes\s5\s5.1.jpg" alt="Mast & Harbour Sneakers">
+                                <h3 style="text-align: left;margin-left: 25px;">Mast & Harbour</h3>
+                                <p style="text-align: left;margin-left: 25px;">White Colourblocked Sneakers</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 2574.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Women/Shoes/s5.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Mast & Harbour Sneakers" data-item-price="2574.00"
+                                        data-item-description="Mast & Harbour Women White & Yellow Colour blocked Sneakers"
+                                        data-item-image="Product Pages\Women\Shoes\s5\s5.1.jpg"
+                                        data-item-name="Mast & Harbour Sneakers" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 3|UK 3.5|UK 4|UK 4.5|UK 5|UK 5.5|UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9">
+                                        Add to cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Nike Women Perforated Sneakers">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Women\Shoes\s1\s1.1.jpg" alt="Nike Perforated Sneakers">
+                                <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                <p style="text-align: left;margin-left: 25px;">Women Perforated Sneakers</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 4745.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Women/Shoes/s1.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Nike Perforated Sneakers" data-item-price="4745.00"
+                                        data-item-description="Nike Women Perforated Sneakers"
+                                        data-item-image="Product Pages\Women\Shoes\s1\s1.1.jpg"
+                                        data-item-name="Nike Perforated Sneakers" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 3|UK 3.5|UK 4|UK 4.5|UK 5|UK 5.5|UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Tommy Hilfiger Beige & Burgundy Sneakers">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Women\Shoes\s2\s2.1.jpg" alt="Tommy Hilfiger Leather Sneakers">
+                                <h3 style="text-align: left;margin-left: 25px;">Tommy Hilfiger</h3>
+                                <p style="text-align: left;margin-left: 25px;">Beige & Burgundy Sneakers</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 6879.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Women/Shoes/s2.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Tommy Hilfiger Leather Sneakers" data-item-price="6879.00"
+                                        data-item-description="Women Beige & Burgundy Leather Sneakers"
+                                        data-item-image="Product Pages\Women\Shoes\s2\s2.1.jpg"
+                                        data-item-name="Tommy Hilfiger Leather Sneakers" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 3|UK 3.5|UK 4|UK 4.5|UK 5|UK 5.5|UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Skechers Women Memory Foam Sneakers">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Women\Shoes\s3\s3.1.jpg" alt="Skechers Memory Foam Sneakers">
+                                <h3 style="text-align: left;margin-left: 25px;">Skechers</h3>
+                                <p style="text-align: left;margin-left: 25px;">Women Memory Foam Sneakers</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 5495.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Women/Shoes/s3.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Skechers Memory Foam Sneakers" data-item-price="5495.00"
+                                        data-item-description="Skechers Women Memory Foam Sneakers"
+                                        data-item-image="Product Pages\Women\Shoes\s3\s3.1.jpg"
+                                        data-item-name="Skechers Memory Foam Sneakers" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 3|UK 3.5|UK 4|UK 4.5|UK 5|UK 5.5|UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9">
+                                        Add to cart&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product">
+                        <div class="product-content" id="Mast & Harbour White Colourblocked Sneakers">
+                            <div>
+                                <br>
+                                <img src="Product Pages\Women\Shoes\s5\s5.1.jpg" alt="Mast & Harbour Sneakers">
+                                <h3 style="text-align: left;margin-left: 25px;">Mast & Harbour</h3>
+                                <p style="text-align: left;margin-left: 25px;">White Colourblocked Sneakers</p>
+                                <h5 style="text-align: left;margin-left: 25px;color:gray">$ 2574.00</h5>
+                                <div class="buy-button">
+                                    <a href="Product%20Pages/Women/Shoes/s5.html"><button>Details</button></a>
+                                    <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                        data-item-id="Mast & Harbour Sneakers" data-item-price="2574.00"
+                                        data-item-description="Mast & Harbour Women White & Yellow Colour blocked Sneakers"
+                                        data-item-image="Product Pages\Women\Shoes\s5\s5.1.jpg"
+                                        data-item-name="Mast & Harbour Sneakers" data-item-custom1-name="Available Sizes"
+                                        data-item-custom1-options="UK 3|UK 3.5|UK 4|UK 4.5|UK 5|UK 5.5|UK 6|UK 6.5|UK 7|UK 7.5|UK 8|UK 8.5|UK 9">
+                                        Add to cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="top_wear_kids">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <h2 style=" background-color: black; color: white; height: 80px; font-size: 40px; text-align: center; padding-top: 10px;">Topwear for Kids</h2>
+                    <div class="d-flex flex-wrap">
+                        <div class="product">
+                            <div class="product-content" id="Technosport Crew Neck Active T-shirt">
+                                <div>
+                                    <br>
+                                    <img src="Product Pages\Kids\Topwear\t1\t1.2.jpeg" alt="Technosport Active T-Shirt">
+                                    <h3 style="text-align: left;margin-left: 25px;">Technosport</h3>
+                                    <p style="text-align: left;margin-left: 25px;">Crew Neck Active T-shirt</p>
+                                    <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1279.00</h5>
+                                    <div class="buy-button">
+                                        <a href="Product%20Pages/Kids/Topwear/t1.html"><button>Details</button></a>
+                                        <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                            data-item-id="Technosport Active T-Shirt" data-item-price="1279.00"
+                                            data-item-description="Crew Neck Active T-shirt"
+                                            data-item-image="Product Pages\Kids\Topwear\t1\t1.2.jpeg"
+                                            data-item-name="Technosport Active T-Shirt" data-item-custom1-name="Available Sizes"
+                                            data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                            Add to cart&nbsp;
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="product-content" id="Lil Tomatoes Purple Hooded Sweatshirt">
+                                <div>
+                                    <br>
+                                    <img src="Product Pages\Kids\Topwear\t3\t3.1.jpeg" alt="Lil Tomatoes Hooded Sweatshirt">
+                                    <h3 style="text-align: left;margin-left: 25px;">Lil Tomatoes</h3>
+                                    <p style="text-align: left;margin-left: 25px;">Purple Hooded Sweatshirt</p>
+                                    <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1100.00</h5>
+                                    <div class="buy-button">
+                                        <a href="Product Pages\Kids\Topwear\t3.html"><button>Details</button></a>
+                                        <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                            data-item-id="Lil Tomatoes Hooded Sweatshirt" data-item-price="1100.00"
+                                            data-item-description="Lil Tomatoes Girls Purple Printed Hooded Sweatshirt"
+                                            data-item-image="Product Pages\Kids\Topwear\t3\t3.1.jpeg"
+                                            data-item-name="Lil Tomatoes Hooded Sweatshirt" data-item-custom1-name="Available Sizes"
+                                            data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                            Add to cart&nbsp;
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="product-content" id="HRX Black Printed Sweatshirt">
+                                <div>
+                                    <br>
+                                    <img src="Product Pages\Kids\Topwear\t4\t4.2.jpeg" alt="HRX Black Printed Sweatshirt">
+                                    <h3 style="text-align: left;margin-left: 25px;">HRX</h3>
+                                    <p style="text-align: left;margin-left: 25px;">Black Printed Sweatshirt</p>
+                                    <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1780.00</h5>
+                                    <div class="buy-button">
+                                        <a href="Product%20Pages/Kids/Topwear/t4.html"><button>Details</button></a>
+                                        <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                            data-item-id="HRX Black Printed Sweatshirt" data-item-price="1780.00"
+                                            data-item-description="High-quality black Snipcart stickers (pack of 3)"
+                                            data-item-image="Product Pages\Kids\Topwear\t4\t4.2.jpeg"
+                                            data-item-name="HRX Black Printed Sweatshirt" data-item-custom1-name="Available Sizes"
+                                            data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                            Add to cart&nbsp;
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="product-content" id="Nike Fleece Hoodie">
+                                <div>
+                                    <br>
+                                    <img src="Product Pages\Kids\Topwear\t5\t5.2.jpeg" alt="Nike Fleece Hoodie">
+                                    <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                    <p style="text-align: left;margin-left: 25px;">Fleece Hoodie</p>
+                                    <h5 style="text-align: left;margin-left: 25px;color:gray">$ 5275.00</h5>
+                                    <div class="buy-button">
+                                        <a href="Product%20Pages/Kids/Topwear/t5.html"><button>Details</button></a>
+                                        <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                            data-item-id="Nike Fleece Hoodie" data-item-price="5275.00"
+                                            data-item-description="Nike Girls Fleece Hoodie"
+                                            data-item-image="Product Pages\Kids\Topwear\t5\t5.2.jpeg"
+                                            data-item-name="Nike Fleece Hoodie" data-item-custom1-name="Available Sizes"
+                                            data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="product-content" id="Technosport Crew Neck Active T-shirt">
+                                <div>
+                                    <br>
+                                    <img src="Product Pages\Kids\Topwear\t1\t1.2.jpeg" alt="Technosport Active T-Shirt">
+                                    <h3 style="text-align: left;margin-left: 25px;">Technosport</h3>
+                                    <p style="text-align: left;margin-left: 25px;">Crew Neck Active T-shirt</p>
+                                    <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1279.00</h5>
+                                    <div class="buy-button">
+                                        <a href="Product%20Pages/Kids/Topwear/t1.html"><button>Details</button></a>
+                                        <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                            data-item-id="Technosport Active T-Shirt" data-item-price="1279.00"
+                                            data-item-description="Crew Neck Active T-shirt"
+                                            data-item-image="Product Pages\Kids\Topwear\t1\t1.2.jpeg"
+                                            data-item-name="Technosport Active T-Shirt" data-item-custom1-name="Available Sizes"
+                                            data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                            Add to cart&nbsp;
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="product-content" id="Lil Tomatoes Purple Hooded Sweatshirt">
+                                <div>
+                                    <br>
+                                    <img src="Product Pages\Kids\Topwear\t3\t3.1.jpeg" alt="Lil Tomatoes Hooded Sweatshirt">
+                                    <h3 style="text-align: left;margin-left: 25px;">Lil Tomatoes</h3>
+                                    <p style="text-align: left;margin-left: 25px;">Purple Hooded Sweatshirt</p>
+                                    <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1100.00</h5>
+                                    <div class="buy-button">
+                                        <a href="Product Pages\Kids\Topwear\t3.html"><button>Details</button></a>
+                                        <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                            data-item-id="Lil Tomatoes Hooded Sweatshirt" data-item-price="1100.00"
+                                            data-item-description="Lil Tomatoes Girls Purple Printed Hooded Sweatshirt"
+                                            data-item-image="Product Pages\Kids\Topwear\t3\t3.1.jpeg"
+                                            data-item-name="Lil Tomatoes Hooded Sweatshirt" data-item-custom1-name="Available Sizes"
+                                            data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                            Add to cart&nbsp;
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="product-content" id="HRX Black Printed Sweatshirt">
+                                <div>
+                                    <br>
+                                    <img src="Product Pages\Kids\Topwear\t4\t4.2.jpeg" alt="HRX Black Printed Sweatshirt">
+                                    <h3 style="text-align: left;margin-left: 25px;">HRX</h3>
+                                    <p style="text-align: left;margin-left: 25px;">Black Printed Sweatshirt</p>
+                                    <h5 style="text-align: left;margin-left: 25px;color:gray">$ 1780.00</h5>
+                                    <div class="buy-button">
+                                        <a href="Product%20Pages/Kids/Topwear/t4.html"><button>Details</button></a>
+                                        <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                            data-item-id="HRX Black Printed Sweatshirt" data-item-price="1780.00"
+                                            data-item-description="High-quality black Snipcart stickers (pack of 3)"
+                                            data-item-image="Product Pages\Kids\Topwear\t4\t4.2.jpeg"
+                                            data-item-name="HRX Black Printed Sweatshirt" data-item-custom1-name="Available Sizes"
+                                            data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                            Add to cart&nbsp;
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product">
+                            <div class="product-content" id="Nike Fleece Hoodie">
+                                <div>
+                                    <br>
+                                    <img src="Product Pages\Kids\Topwear\t5\t5.2.jpeg" alt="Nike Fleece Hoodie">
+                                    <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                    <p style="text-align: left;margin-left: 25px;">Fleece Hoodie</p>
+                                    <h5 style="text-align: left;margin-left: 25px;color:gray">$ 5275.00</h5>
+                                    <div class="buy-button">
+                                        <a href="Product%20Pages/Kids/Topwear/t5.html"><button>Details</button></a>
+                                        <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                            data-item-id="Nike Fleece Hoodie" data-item-price="5275.00"
+                                            data-item-description="Nike Girls Fleece Hoodie"
+                                            data-item-image="Product Pages\Kids\Topwear\t5\t5.2.jpeg"
+                                            data-item-name="Nike Fleece Hoodie" data-item-custom1-name="Available Sizes"
+                                            data-item-custom1-options="US XS|US S|US M|US L|US XL|US XXL">
+                                            Add to cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="bottom_wear_kids">
+                        <br>
+        <br>
+        <br>
+        <br>
+                        <h2 style=" background-color: black; color: white; height: 80px; font-size: 40px; text-align: center; padding-top: 10px;">Bottomwear for Kids</h2>
+                        <div class="d-flex flex-wrap">
+                            <div class="product">
+                                <div class="product-content" id="H&M Girls Green Leggings">
+                                    <div>
+                                        <br>
+                                        <img src="Product Pages\Kids\Bottomwear\b1\b1.3.jpeg" alt="H&M Green Leggings">
+                                        <h3 style="text-align: left;margin-left: 25px;">H&M</h3>
+                                        <p style="text-align: left;margin-left: 25px;">Girls Green Leggings</p>
+                                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 729.00</h5>
+                                        <div class="buy-button">
+                                            <a href="Product%20Pages/Kids/Bottomwear/b1.html"><button>Details</button></a>
+                                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                data-item-id="H&M Green Leggings" data-item-price="729.00"
+                                                data-item-description="H&M Girls Green Leggings"
+                                                data-item-image="Product Pages\Kids\Bottomwear\b1\b1.3.jpeg"
+                                                data-item-name="H&M Green Leggings" data-item-custom1-name="Available Sizes"
+                                                data-item-custom1-options="19.5|20|20.5|21|21.5|22|22.5|23|23.5|24|24.5">
+                                                Add to cart&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product">
+                                <div class="product-content" id="Here & Now Blue Heavy Fade Jeans">
+                                        <br>
+                                        <img src="Product Pages\Kids\Bottomwear\b2\b2.2.jpeg" alt="Here & Now Blue Jeans">
+                                        <h3 style="text-align: left;margin-left: 25px;">Here & Now</h3>
+                                        <p style="text-align: left;margin-left: 25px;">Blue Heavy Fade Jeans</p>
+                                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 854.00</h5>
+                                        <div class="buy-button">
+                                            <a href="Product%20Pages/Kids/Bottomwear/b2.html"><button>Details</button></a>
+                                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                data-item-id="Here & Now Blue Jeans" data-item-price="854.00"
+                                                data-item-description="Here & Now Blue Heavy Fade Applique Stretchable Jeans"
+                                                data-item-image="Product Pages\Kids\Bottomwear\b2\b2.2.jpeg"
+                                                data-item-name="Here & Now Blue Jeans" data-item-custom1-name="Available Sizes"
+                                                data-item-custom1-options="19.5|20|20.5|21|21.5|22|22.5|23|23.5|24|24.5">
+                                                Add to cart&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            <div class="product">
+                                <div class="product-content" id="Justice Blue Denim Shorts">
+                                    <div>
+                                        <br>
+                                        <img src="Product Pages\Kids\Bottomwear\b3\b3.2.jpeg" alt="Justice Blue Denim Shorts">
+                                        <h3 style="text-align: left;margin-left: 25px;">Justice</h3>
+                                        <p style="text-align: left;margin-left: 25px;">Blue Denim Shorts</p>
+                                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 785.00</h5>
+                                        <div class="buy-button">
+                                            <a href="Product%20Pages/Kids/Bottomwear/b3.html"><button>Details</button></a>
+                                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                data-item-id="Justice Blue Denim Shorts" data-item-price="785.00"
+                                                data-item-description="Justice Girls Blue Woven Design Denim Shorts"
+                                                data-item-image="Product Pages\Kids\Bottomwear\b3\b3.2.jpeg"
+                                                data-item-name="Justice Blue Denim Shorts" data-item-custom1-name="Available Sizes"
+                                                data-item-custom1-options="19.5|20|20.5|21|21.5|22|22.5|23|23.5|24|24.5">
+                                                Add to cart&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product">
+                                <div class="product-content" id="Here & Now Blue Denim Shorts">
+                                    <div>
+                                        <br>
+                                        <img src="Product Pages\Kids\Bottomwear\b4\b4.1.jpeg" alt="Here & Now Denim Shorts">
+                                        <h3 style="text-align: left;margin-left: 25px;">Here & Now</h3>
+                                        <p style="text-align: left;margin-left: 25px;">Blue Denim Shorts</p>
+                                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 719.00</h5>
+                                        <div class="buy-button">
+                                            <a href="Product%20Pages/Kids/Bottomwear/b4.html"><button>Details</button></a>
+                                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                data-item-id="Here & Now Denim Shorts" data-item-price="719.00"
+                                                data-item-description="Boys Blue Washed Slim Fit Mid-Rise Denim Shorts"
+                                                data-item-image="Product Pages\Kids\Bottomwear\b4\b4.1.jpeg"
+                                                data-item-name="Here & Now Denim Shorts" data-item-custom1-name="Available Sizes"
+                                                data-item-custom1-options="19.5|20|20.5|21|21.5|22|22.5|23|23.5|24|24.5">
+                                                Add to cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product">
+                                <div class="product-content" id="H&M Girls Green Leggings">
+                                    <div>
+                                        <br>
+                                        <img src="Product Pages\Kids\Bottomwear\b1\b1.3.jpeg" alt="H&M Green Leggings">
+                                        <h3 style="text-align: left;margin-left: 25px;">H&M</h3>
+                                        <p style="text-align: left;margin-left: 25px;">Girls Green Leggings</p>
+                                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 729.00</h5>
+                                        <div class="buy-button">
+                                            <a href="Product%20Pages/Kids/Bottomwear/b1.html"><button>Details</button></a>
+                                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                data-item-id="H&M Green Leggings" data-item-price="729.00"
+                                                data-item-description="H&M Girls Green Leggings"
+                                                data-item-image="Product Pages\Kids\Bottomwear\b1\b1.3.jpeg"
+                                                data-item-name="H&M Green Leggings" data-item-custom1-name="Available Sizes"
+                                                data-item-custom1-options="19.5|20|20.5|21|21.5|22|22.5|23|23.5|24|24.5">
+                                                Add to cart&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product">
+                                <div class="product-content" id="Here & Now Blue Heavy Fade Jeans">
+                                        <br>
+                                        <img src="Product Pages\Kids\Bottomwear\b2\b2.2.jpeg" alt="Here & Now Blue Jeans">
+                                        <h3 style="text-align: left;margin-left: 25px;">Here & Now</h3>
+                                        <p style="text-align: left;margin-left: 25px;">Blue Heavy Fade Jeans</p>
+                                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 854.00</h5>
+                                        <div class="buy-button">
+                                            <a href="Product%20Pages/Kids/Bottomwear/b2.html"><button>Details</button></a>
+                                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                data-item-id="Here & Now Blue Jeans" data-item-price="854.00"
+                                                data-item-description="Here & Now Blue Heavy Fade Applique Stretchable Jeans"
+                                                data-item-image="Product Pages\Kids\Bottomwear\b2\b2.2.jpeg"
+                                                data-item-name="Here & Now Blue Jeans" data-item-custom1-name="Available Sizes"
+                                                data-item-custom1-options="19.5|20|20.5|21|21.5|22|22.5|23|23.5|24|24.5">
+                                                Add to cart&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            <div class="product">
+                                <div class="product-content" id="Justice Blue Denim Shorts">
+                                    <div>
+                                        <br>
+                                        <img src="Product Pages\Kids\Bottomwear\b3\b3.2.jpeg" alt="Justice Blue Denim Shorts">
+                                        <h3 style="text-align: left;margin-left: 25px;">Justice</h3>
+                                        <p style="text-align: left;margin-left: 25px;">Blue Denim Shorts</p>
+                                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 785.00</h5>
+                                        <div class="buy-button">
+                                            <a href="Product%20Pages/Kids/Bottomwear/b3.html"><button>Details</button></a>
+                                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                data-item-id="Justice Blue Denim Shorts" data-item-price="785.00"
+                                                data-item-description="Justice Girls Blue Woven Design Denim Shorts"
+                                                data-item-image="Product Pages\Kids\Bottomwear\b3\b3.2.jpeg"
+                                                data-item-name="Justice Blue Denim Shorts" data-item-custom1-name="Available Sizes"
+                                                data-item-custom1-options="19.5|20|20.5|21|21.5|22|22.5|23|23.5|24|24.5">
+                                                Add to cart&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product">
+                                <div class="product-content" id="Here & Now Blue Denim Shorts">
+                                    <div>
+                                        <br>
+                                        <img src="Product Pages\Kids\Bottomwear\b4\b4.1.jpeg" alt="Here & Now Denim Shorts">
+                                        <h3 style="text-align: left;margin-left: 25px;">Here & Now</h3>
+                                        <p style="text-align: left;margin-left: 25px;">Blue Denim Shorts</p>
+                                        <h5 style="text-align: left;margin-left: 25px;color:gray">$ 719.00</h5>
+                                        <div class="buy-button">
+                                            <a href="Product%20Pages/Kids/Bottomwear/b4.html"><button>Details</button></a>
+                                            <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                data-item-id="Here & Now Denim Shorts" data-item-price="719.00"
+                                                data-item-description="Boys Blue Washed Slim Fit Mid-Rise Denim Shorts"
+                                                data-item-image="Product Pages\Kids\Bottomwear\b4\b4.1.jpeg"
+                                                data-item-name="Here & Now Denim Shorts" data-item-custom1-name="Available Sizes"
+                                                data-item-custom1-options="19.5|20|20.5|21|21.5|22|22.5|23|23.5|24|24.5">
+                                                Add to cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="shoes_kids">
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <h2 style=" background-color: black; color: white; height: 80px; font-size: 40px; text-align: center; padding-top: 10px;">Shoes for Kids</h2>
+                            <div class="d-flex flex-wrap">
+                                <div class="product">
+                                    <div class="product-content" id="Jordan Stay Loyal 2">
+                                        <div>
+                                            <br>
+                                            <img src="Product Pages\Kids\Shoes\s1\s1.1.jpeg" alt="Jordan Stay Loyal 2">
+                                            <h3 style="text-align: left;margin-left: 25px;">Jordan</h3>
+                                            <p style="text-align: left;margin-left: 25px;">Jordan Stay Loyal 2</p>
+                                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 8675.00</h5>
+                                            <div class="buy-button">
+                                                <a href="Product%20Pages/Kids/Shoes/s1.html"><button>Details</button></a>
+                                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                    data-item-id="Jordan Stay Loyal 2" data-item-price="8675.00"
+                                                    data-item-description="Jordan Stay Loyal 2"
+                                                    data-item-image="Product Pages\Kids\Shoes\s1\s1.1.jpeg"
+                                                    data-item-name="Jordan Stay Loyal 2" data-item-custom1-name="Available Sizes"
+                                                    data-item-custom1-options="US 2C|US 3C|US 4C|US 5C|US 6C|US 7C|US 8C|US 9C|US 10C">
+                                                    Add to cart&nbsp;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product">
+                                    <div class="product-content" id="Nike Team Hustle D 10 Lil">
+                                        <div>
+                                            <br>
+                                            <img src="Product Pages\Kids\Shoes\s2\s2.1.jpeg" alt="Nike Team Hustle">
+                                            <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                            <p style="text-align: left;margin-left: 25px;">Nike Team Hustle D 10 Lil</p>
+                                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 7150.00</h5>
+                                            <div class="buy-button">
+                                                <a href="Product%20Pages/Kids/Shoes/s2.html"><button>Details</button></a>
+                                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                    data-item-id="Nike Team Hustle" data-item-price="7150.00"
+                                                    data-item-description="Nike Team Hustle D 10 Lil"
+                                                    data-item-image="Product Pages\Kids\Shoes\s2\s2.1.jpeg"
+                                                    data-item-name="Nike Team Hustle" data-item-custom1-name="Available Sizes"
+                                                    data-item-custom1-options="US 2C|US 3C|US 4C|US 5C|US 6C|US 7C|US 8C|US 9C|US 10C">
+                                                    Add to cart&nbsp;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product">
+                                    <div class="product-content" id="Nike Star Runner 3">
+                                        <div>
+                                            <br>
+                                            <img src="Product Pages\Kids\Shoes\s4\s4.1.jpeg" alt="Nike Star Runner">
+                                            <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                            <p style="text-align: left;margin-left: 25px;">Nike Star Runner 3</p>
+                                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 5395.00</h5>
+                                            <div class="buy-button">
+                                                <a href="Product%20Pages/Kids/Shoes/s4.html"><button>Details</button></a>
+                                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                    data-item-id="Nike Star Runner" data-item-price="5395.00"
+                                                    data-item-description="Nike Star Runner 3"
+                                                    data-item-image="Product Pages\Kids\Shoes\s4\s4.1.jpeg"
+                                                    data-item-name="Nike Star Runner" data-item-custom1-name="Available Sizes"
+                                                    data-item-custom1-options="US 2C|US 3C|US 4C|US 5C|US 6C|US 7C|US 8C|US 9C|US 10C">
+                                                    Add to cart&nbsp;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product">
+                                    <div class="product-content" id="Nike Air Max 90 LTR">
+                                        <div>
+                                            <br>
+                                            <img src="Product Pages\Kids\Shoes\s5\s5.1.jpeg" alt="Nike Air Max">
+                                            <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                            <p style="text-align: left;margin-left: 25px;">Nike Air Max 90 LTR</p>
+                                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 10,895.00</h5>
+                                            <div class="buy-button">
+                                                <a href="Product%20Pages/Kids/Shoes/s5.html"><button>Details</button></a>
+                                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                    data-item-id="Nike Air Max" data-item-price="10895.00"
+                                                    data-item-description="Nike Air Max 90 LTR"
+                                                    data-item-image="Product Pages\Kids\Shoes\s5\s5.1.jpeg"
+                                                    data-item-name="Nike Air Max" data-item-custom1-name="Available Sizes"
+                                                    data-item-custom1-options="US 2C|US 3C|US 4C|US 5C|US 6C|US 7C|US 8C|US 9C|US 10C">
+                                                    Add to cart
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product">
+                                    <div class="product-content" id="Jordan Stay Loyal 2">
+                                        <div>
+                                            <br>
+                                            <img src="Product Pages\Kids\Shoes\s1\s1.1.jpeg" alt="Jordan Stay Loyal 2">
+                                            <h3 style="text-align: left;margin-left: 25px;">Jordan</h3>
+                                            <p style="text-align: left;margin-left: 25px;">Jordan Stay Loyal 2</p>
+                                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 8675.00</h5>
+                                            <div class="buy-button">
+                                                <a href="Product%20Pages/Kids/Shoes/s1.html"><button>Details</button></a>
+                                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                    data-item-id="Jordan Stay Loyal 2" data-item-price="8675.00"
+                                                    data-item-description="Jordan Stay Loyal 2"
+                                                    data-item-image="Product Pages\Kids\Shoes\s1\s1.1.jpeg"
+                                                    data-item-name="Jordan Stay Loyal 2" data-item-custom1-name="Available Sizes"
+                                                    data-item-custom1-options="US 2C|US 3C|US 4C|US 5C|US 6C|US 7C|US 8C|US 9C|US 10C">
+                                                    Add to cart&nbsp;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product">
+                                    <div class="product-content" id="Nike Team Hustle D 10 Lil">
+                                        <div>
+                                            <br>
+                                            <img src="Product Pages\Kids\Shoes\s2\s2.1.jpeg" alt="Nike Team Hustle">
+                                            <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                            <p style="text-align: left;margin-left: 25px;">Nike Team Hustle D 10 Lil</p>
+                                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 7150.00</h5>
+                                            <div class="buy-button">
+                                                <a href="Product%20Pages/Kids/Shoes/s2.html"><button>Details</button></a>
+                                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                    data-item-id="Nike Team Hustle" data-item-price="7150.00"
+                                                    data-item-description="Nike Team Hustle D 10 Lil"
+                                                    data-item-image="Product Pages\Kids\Shoes\s2\s2.1.jpeg"
+                                                    data-item-name="Nike Team Hustle" data-item-custom1-name="Available Sizes"
+                                                    data-item-custom1-options="US 2C|US 3C|US 4C|US 5C|US 6C|US 7C|US 8C|US 9C|US 10C">
+                                                    Add to cart&nbsp;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product">
+                                    <div class="product-content" id="Nike Star Runner 3">
+                                        <div>
+                                            <br>
+                                            <img src="Product Pages\Kids\Shoes\s4\s4.1.jpeg" alt="Nike Star Runner">
+                                            <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                            <p style="text-align: left;margin-left: 25px;">Nike Star Runner 3</p>
+                                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 5395.00</h5>
+                                            <div class="buy-button">
+                                                <a href="Product%20Pages/Kids/Shoes/s4.html"><button>Details</button></a>
+                                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                    data-item-id="Nike Star Runner" data-item-price="5395.00"
+                                                    data-item-description="Nike Star Runner 3"
+                                                    data-item-image="Product Pages\Kids\Shoes\s4\s4.1.jpeg"
+                                                    data-item-name="Nike Star Runner" data-item-custom1-name="Available Sizes"
+                                                    data-item-custom1-options="US 2C|US 3C|US 4C|US 5C|US 6C|US 7C|US 8C|US 9C|US 10C">
+                                                    Add to cart&nbsp;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product">
+                                    <div class="product-content" id="Nike Air Max 90 LTR">
+                                        <div>
+                                            <br>
+                                            <img src="Product Pages\Kids\Shoes\s5\s5.1.jpeg" alt="Nike Air Max">
+                                            <h3 style="text-align: left;margin-left: 25px;">Nike</h3>
+                                            <p style="text-align: left;margin-left: 25px;">Nike Air Max 90 LTR</p>
+                                            <h5 style="text-align: left;margin-left: 25px;color:gray">$ 10,895.00</h5>
+                                            <div class="buy-button">
+                                                <a href="Product%20Pages/Kids/Shoes/s5.html"><button>Details</button></a>
+                                                <button style="background-color: black;color: white;" class="snipcart-add-item"
+                                                    data-item-id="Nike Air Max" data-item-price="10895.00"
+                                                    data-item-description="Nike Air Max 90 LTR"
+                                                    data-item-image="Product Pages\Kids\Shoes\s5\s5.1.jpeg"
+                                                    data-item-name="Nike Air Max" data-item-custom1-name="Available Sizes"
+                                                    data-item-custom1-options="US 2C|US 3C|US 4C|US 5C|US 6C|US 7C|US 8C|US 9C|US 10C">
+                                                    Add to cart
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+            <hr>
+            <script async src="https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js"></script>
+            <div id="snipcart" data-config-modal-style="side"
+                data-api-key="MGJmMTczYjEtOGRkYy00YzMyLWI2MTUtZmEyMThlNWYyMmIzNjM3MzkzMTc2OTA2OTMzOTc3" hidden></div>
+            <script>
+                $("#view").click(function () {
+                    $(".products").toggleClass("products-table");
+                });
+                function find() {
+                    noresult = true;
+                    a1 = document.getElementById("signup-email").value
+                    var arr = ["Huetrap Men Mint Green Round Neck Cotton T-shirt","Puma Men Black Essential Tank Pure Cotton T-shirt","Roadster Men Maroon Curl Edge Round Neck Cotton T-shirt","Dillinger Men Green Black Printed Pure Cotton T-shirt","Huetrap Men Mint Green Round Neck Cotton T-shirt","Puma Men Black Essential Tank Pure Cotton T-shirt","Roadster Men Maroon Curl Edge Round Neck Cotton T-shirt","Dillinger Men Green Black Printed Pure Cotton T-shirt","Here&Now Men Blue Slim Fit Chinos","Roadster Time Travlr Brown Solid Chinos","Adidas Navy Blue Solid Sustainable Joggers","Nike Black Printed Standard Track Pants","Here&Now Men Blue Slim Fit Chinos","Roadster Time Travlr Brown Solid Chinos","Adidas Navy Blue Solid Sustainable Joggers","Nike Black Printed Standard Track Pants","Nike Air Penny 2","Nike Cosmic Unity 2","Nike Zoom Superfly 9 Elite FG","Nike Precision 6 FlyEase","Nike Air Penny 2","Nike Cosmic Unity 2","Nike Zoom Superfly 9 Elite FG","Nike Precision 6 FlyEase","Roadster Women Black Ruched Top","Malhaar Blue Floral Print Empire Top","Forever New Women Formal Shirt","Marks & Spencer Ethnic Embroidered Casual Shirt","Roadster Women Black Ruched Top","Malhaar Blue Floral Print Empire Top","Forever New Women Formal Shirt","Marks & Spencer Ethnic Embroidered Casual Shirt","Calvin Klein Women Loose Low-Rise Jeans","Gant Rust Striped Cotton Trouser","Roadster Boyfriend Fit Light Fade Jeans","Marks & Spencer Black Pure Leather Trousers","Calvin Klein Women Loose Low-Rise Jeans","Gant Women Rust Striped Cotton Trouser","Roadster Boyfriend Fit Light Fade Jeans","Marks & Spencer Black Pure Leather Trousers","Nike Women Perforated Sneakers","Tommy Hilfiger Beige & Burgundy Sneakers","Skechers Women Memory Foam Sneakers","Mast & Harbour White Colourblocked Sneakers","Nike Women Perforated Sneakers","Tommy Hilfiger Beige & Burgundy Sneakers","Skechers Women Memory Foam Sneakers","Mast & Harbour White Colourblocked Sneakers","Technosport Crew Neck Active T-shirt","Lil Tomatoes Purple Hooded Sweatshirt","HRX Black Printed Sweatshirt","Nike Fleece Hoodie","Technosport Crew Neck Active T-shirt","Lil Tomatoes Purple Hooded Sweatshirt","HRX Black Printed Sweatshirt","Nike Fleece Hoodie","H&M Girls Green Leggings","Here & Now Blue Heavy Fade Jeans","Justice Blue Denim Shorts","Here & Now Blue Denim Shorts","H&M Girls Green Leggings","Here & Now Blue Heavy Fade Jeans","Justice Blue Denim Shorts","Here & Now Blue Denim Shorts","Jordan Stay Loyal 2","Nike Team Hustle D 10 Lil","Nike Star Runner 3","Nike Air Max 90 LTR","Jordan Stay Loyal 2","Nike Team Hustle D 10 Lil","Nike Star Runner 3","Nike Air Max 90 LTR",]
+                    for (i = 0; i <= arr.length; i++) {
+                        a2 = document.getElementById(arr[i])
+                        if (a1 == arr[i]) {
+                            // console.log(a2)
+                            a2.style.border = "2px solid black"
+                            a2.scrollIntoView();
+                            noResult = false;
+                        }
+                        else {
+                            a2.style.border = "none"
+                            continue;
+                            // return false
+                        }
+                    }
+                }
+
+            </script>
+</body>
+
+</html>

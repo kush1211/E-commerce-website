@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhaumik ❤️ Mayuri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/b083fdafea.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        setTimeout(function(){ $('.load_bg').fadeToggle();},10000);
+    </script>
+    <script type="text/javascript">
+        // Set the date we're counting down to
+        var countDate = new Date("March 25, 2023 00:00:00").getTime();
+        function cd()
+        { 
+            // Get today's date and time
+            var now = new Date().getTime();
+            // Find the distance between now and the count down date
+            var distance = countDate - now;
+            document.getElementById("day").innerText ='00';
+                document.getElementById("min").innerText ='00';
+                document.getElementById("hr").innerText ='00';
+                document.getElementById("sec").innerText ='00';
+                if (distance >= 0) 
+            {
+
+            var d = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var h=Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var s = Math.floor((distance % (1000 * 60)) / 1000);
+
+            h=(h<10)?"0"+h:h;
+            m=(m<10)?"0"+m:m;
+            s=(s<10)?"0"+s:s;
+            d=(d<10)?"0"+d:d;
+            document.getElementById('day').innerText=d;
+            document.getElementById('hr').innerText=h;
+            document.getElementById('min').innerText=m;
+            document.getElementById('sec').innerText=s;
+                
+            /*    document.getElementById("day").innerText ='00';
+                document.getElementById("min").innerText ='00';
+                document.getElementById("hr").innerText ='00';
+                document.getElementById("sec").innerText ='00';*/
+            }
+
+        }
+        setInterval(function() {
+            cd();
+        },1000)
+    </script>
+</head>
+<body style="background: #ffffff url('gallery/bg.png');background-size:60%">
+    <div class="navbar">
+        <a class="nav-link text-dark active" href="home.html"><i class="fa fa-home fa-fw fa-lg"></i> Home</a>
+        <a href="timeline.html" class="nav-link text-dark"><i class="fa fa-hourglass-2 fa-fw fa-lg"></i> Timeline</a>
+        <a href="invitation.html" class="nav-link text-dark"><i class="fa fa-heart-o fa-fw fa-lg"></i> Invitation</a>
+        <a href="https://goo.gl/maps/mSDQU3sYhWnrXPbr7" class="nav-link text-dark"><i class="fa fa-location fa-fw fa-lg"></i> Location</a>
+        <a href="gallery.html" class="nav-link text-dark"><i class="fa fa-photo fa-fw fa-lg"></i> Gallery</a>
+    </div><br><br><br>
+    <center>
+    <video  class="vid" height="760px" width="100%" padding-top="10px" autoplay loop muted >
+        <source src="gallery/reel5.mp4" style="position:static;" type="video/mp4">
+    </video>
+    </center>
+    <section class="back-img"></section>
+    <section>  
+        <h1 align="center" class="try"><b>Bhaumik & Mayuri</b></h1> 
+        <p align="center" style="color:#18314adb">Together with our families we cordinally invite you to our marriage.</p>
+    </section>
+    
+    <section>
+            <div class="countdown ">
+                <div id="day">00</div>
+                <div id="hr">00</div>
+                <div id="min">00</div>
+                <div id="sec">00</div>
+            </div>
+    </section>
+    <p class="font" align="center" style="color:#18314adb;margin-top:25px;">See you on 25 March, 2023 at 7:45 PM</p>
+
+    <br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bhaumik❤️Mayuri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/10fc4481de.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw=="
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A=="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .timeline {
+            position: relative;
+            list-style: none;
+            padding: 0;
+            margin: 50px 0;
+        }
+
+        .timeline:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            width: 2px;
+            background-color: #bbb;
+            z-index: -1;
+        }
+
+        .timeline li {
+            position: relative;
+            padding: 50px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline li .t-date {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #fff;
+            border: 2px solid #bbb;
+            border-radius: 50px;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .timeline li .t-content {
+            flex: 1;
+            margin-top: 20px;
+            margin-left: 30px;
+            margin-right: 30px;
+            text-align: center;
+        }
+
+        .timeline li .t-content h2 {
+            margin-bottom: 10px;
+        }
+
+        .timeline li.left .t-date {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline li.left .t-content {
+            margin-left: 20%;
+            /* margin-right: 30px; */
+            text-align: center;
+        }
+
+        .timeline li.right .t-date {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline li.right .t-content {
+            /* margin-left: 30px; */
+            margin-right: 20%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .timeline:before {
+                left: 25px;
+            }
+
+            /* .timeline li {
+                padding: 30px 0;
+            } */
+
+            .timeline li .t-date {
+                padding: 5px 10px;
+                font-size: 16px;
+            }
+
+            .timeline li .t-content {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .timeline li.left .t-content {
+                text-align: center;
+                margin-left: 0;
+            }
+
+            .timeline li.right .t-content {
+                text-align: center;
+                margin-right: 0;
+            }
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2px;
+        }
+    </style>
+
+</head>
+
+<body style="background:#ffffff url('gallery/bg.png') ;background-size: cover;">
+
+    <div class="navbar">
+        <a class="nav-link text-dark active" href="home.html"><i class="fa fa-house" style="--fa-animation-duration: 3s;"></i> Home</a>
+        <a href="timeline.html" class="text-dark nav-link"><i class="fa fa-fw fa-hourglass-2 fa-shake text-dark" style="--fa-animation-duration: 1.5s;"></i> timeline</a>
+        <a href="#" class="text-dark nav-link"><i class="fa fa-fw fa-heart-o fa-fade text-dark" style="--fa-animation-duration: 1s;"></i> Invitation</a>
+        <a href="#" class="text-dark nav-link"><i class="fa fa-fw fa-location fa-beat text-dark" style="--fa-animation-duration: 1s;"></i> location</a>
+        <a href="gallery.html" class="text-dark nav-link"><i class="fa fa-fw fa-photo text-dark fa-flip" style="--fa-animation-duration: 3s;"></i> Gallery</a>
+    </div><br><br><br>
+    <div class="fw-bold" style="font-size:large;">
+        <center>
+            <img src="gallery/swastika.png" height="30" width="30" />
+            માંગલિક પ્રસંગો
+            <img src="gallery/swastika.png" height="30" width="30" />
+        </center>
+    </div>
+    <!-- <h1>માંગલિક અવસરો</h1> -->
+    <ul class="timeline">
+        <li class="left">
+            <div class="t-date">૩૦-૦૩-૨૦૨૩, સોમવાર</div>
+            <div class="t-content">
+                <h2>મંડપ મુહુર્ત</h2>
+                <p>બપોરે ૧:૪૦ કલાકે</p>
+            </div>
+        </li>
+        <li class="right">
+            <div class="t-content">
+                <h2>દાંડીયા રાસ</h2>
+                <p>રાત્રે ૯:૩૦ કલાકે</p>
+            </div>
+        </li>
+        <li class="left">
+            <div class="t-date">૩૧-૦૧-૨૦૨૩, મંગળવાર</div>
+            <div class="t-content">
+                <h2>જાન પ્રસ્થાન</h2>
+                <p>સાંજે ૪:૩૦ કલાકે</p>
+            </div>
+        </li>
+        <li class="right">
+            <div class="t-content">
+                <h2>ભોજન સમારંભ</h2>
+                <p>સાંજે ૭:૦૦ કલાકે</p>
+            </div>
+        </li>
+        <li class="left">
+            <div class="t-content">
+                <h2>હસ્ત મેળાપ</h2>
+                <p>સાંજે ૭:૩૫ કલાકે</p>
+            </div>
+        </li>
+    </ul>
+
+</body>
+
+</html>

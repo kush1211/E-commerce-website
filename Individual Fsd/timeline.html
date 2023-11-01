@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bhaumik❤️Mayuri</title>
+<link rel="stylesheet" href="style.css">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  background-color: rgb(0, 0, 0);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+}
+
+/* Container around content */
+.container {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+}
+
+/* The circles on the timeline */
+.container::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: -17px;
+  background-color: white;
+  border: 4px solid #000000;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Place the container to the left */
+.left {
+  left: 0;
+}
+
+/* Place the container to the right */
+.right {
+  left: 50%;
+}
+
+/* Add arrows to the left container (pointing right) */
+.left::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  right: 30px;
+  border: medium solid rgb(0, 0, 0);
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent rgb(0, 0, 0);
+}
+
+/* Add arrows to the right container (pointing left) */
+.right::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  left: 30px;
+  border: medium solid rgb(0, 0, 0);
+  border-width: 10px 10px 10px 0;
+  border-color: transparent rgb(0, 0, 0) transparent transparent;
+}
+
+/* Fix the circle for containers on the right side */
+.right::after {
+  left: -16px;
+}
+
+/* The actual content */
+.content {
+  padding: 20px 30px;
+  background-color: #e7c5c5;
+  position: relative;
+  border-radius: 6px;
+}
+
+/* Media queries - Responsive timeline on screens less than 600px wide */
+@media screen and (max-width: 600px) {
+  /* Place the timelime to the left */
+  .timeline::after {
+  left: 31px;
+  }
+  
+  /* Full-width containers */
+  .container {
+  width: 100%;
+  padding-left: 70px;
+  padding-right: 25px;
+  }
+  
+  /* Make sure that all arrows are pointing leftwards */
+  .container::before {
+  left: 60px;
+  border: medium solid rgb(0, 0, 0);
+  border-width: 10px 10px 10px 0;
+  border-color: transparent white transparent transparent;
+  }
+
+  /* Make sure all circles are at the same spot */
+  .left::after, .right::after {
+  left: 15px;
+  }
+  
+  /* Make all right containers behave like the left ones */
+  .right {
+  left: 0%;
+  }
+}
+.navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2px;
+        }
+</style>
+</head>
+<body style="background:#ffffff url('gallery/bg.png') ;background-size: cover;">
+ <div class="navbar">
+        <a class="nav-link text-dark active" href="home.html"><i class="fa fa-house" style="--fa-animation-duration: 3s;"></i> Home</a>
+        <a href="timeline.html" class="text-dark nav-link"><i class="fa fa-fw fa-hourglass-2 fa-shake text-dark" style="--fa-animation-duration: 1.5s;"></i> timeline</a>
+        <a href="#" class="text-dark nav-link"><i class="fa fa-fw fa-heart-o fa-fade text-dark" style="--fa-animation-duration: 1s;"></i> Invitation</a>
+        <a href="#" class="text-dark nav-link"><i class="fa fa-fw fa-location fa-beat text-dark" style="--fa-animation-duration: 1s;"></i> location</a>
+        <a href="gallery.html" class="text-dark nav-link"><i class="fa fa-fw fa-photo text-dark fa-flip" style="--fa-animation-duration: 3s;"></i> Gallery</a>
+    </div>
+	<div class="fw-bold" style="font-size:large;">
+        <center>
+            <img src="gallery/swastika.png" height="30" width="30" />
+            માંગલિક પ્રસંગો
+            <img src="gallery/swastika.png" height="30" width="30" />
+        </center>
+    </div>
+<div class="timeline">
+  <div class="container left">
+    <div class="content">
+      <h2>૩૦-૦૩-૨૦૨૩, સોમવાર</h2>
+      <h3>મંડપ મુહુર્ત</h3>
+      <p>બપોરે ૧:૪૦ કલાકે</p>
+	</div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h3>દાંડીયા રાસ</h3>
+        <p>રાત્રે ૯:૩૦ કલાકે</p>
+    </div>
+  </div>	
+  <div class="container left">
+    <div class="content">
+		<h2>૩૧-૦૧-૨૦૨૩, મંગળવાર</h2>
+		<h3>જાન પ્રસ્થાન</h3>
+	  <p>સાંજે ૪:૩૦ કલાકે</p>  
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+		<h3>ભોજન સમારંભ</h3>
+		<p>સાંજે ૭:૦૦ કલાકે</p>
+	</div>
+  </div>
+  <div class="container left">
+    <div class="content">
+		<h3>હસ્ત મેળાપ</h3>
+		<p>સાંજે ૭:૩૫ કલાકે</p>
+	</div>
+  </div>
+</div>
+
+</body>
+</html>
